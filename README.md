@@ -5,17 +5,17 @@
 
 Example with 3 minimal .NET 8 services (Minimal API) connected in Docker Compose:
 1. **service-a** (http://localhost:5001) — main service:
-    endpoint POST /start — starts the flow A -> B -> C
-    endpoint POST /webhook — receives webhook from C
-    background queue (Channel) processes tasks and calls Service B with Polly retry (respect Retry-After)
-    rate limiter on /webhook (concurrency limiter)
+    - endpoint POST /start — starts the flow A -> B -> C;
+    - endpoint POST /webhook — receives webhook from C;
+    - background queue (Channel) processes tasks and calls Service B with Polly retry;
+    - rate limiter on /webhook (concurrency limiter)
 
 2. **service-b** (http://localhost:5002) — external API with TokenBucket rate limiter:
-    endpoint POST /api/process — accepts task from A, sometimes returns 500/429 to simulate errors and rate limiting
-    on success, forwards to Service C /do-work
+    - endpoint POST /api/process — accepts task from A, sometimes returns 500/429 to simulate errors and rate limiting
+    - on success, forwards to Service C /do-work
 
 3. **service-c** (http://localhost:5003) — worker that simulates long work and sends webhook back to A:
-    endpoint POST /do-work — does work and POSTs http://service-a:5001/webhook when finished.
+    - endpoint POST /do-work — does work and POSTs http://service-a:5001/webhook when finished.
 
 
 **To see the behavior of retries, backoff, rate-limiter, and webhook:**
