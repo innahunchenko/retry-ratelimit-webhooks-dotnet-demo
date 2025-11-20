@@ -1,0 +1,18 @@
+services:
+  service-a:
+    image: ${DOCKER_REGISTRY-}service-a
+    build:
+      context: .
+      dockerfile: Services/ServiceA/ServiceA.API/Dockerfile
+
+  service-b:
+    image: ${DOCKER_REGISTRY-}service-b
+    build:
+      context: .
+      dockerfile: Services/ServiceB/ServiceB.API/Dockerfile
+
+  service-c:
+    image: ${DOCKER_REGISTRY-}service-c
+    build:
+      context: .
+      dockerfile: Services/ServiceC/ServiceC.API/Dockerfile

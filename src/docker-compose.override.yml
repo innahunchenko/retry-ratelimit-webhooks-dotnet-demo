@@ -1,0 +1,23 @@
+services:
+  service-a:
+    container_name: service-a
+    environment:
+     ASPNETCORE_URLS: "http://+:80"
+    ports:
+     - "5001:80"
+    depends_on:
+     - service-b
+     - service-c
+  service-b:
+    container_name: service-b
+    environment:
+     ASPNETCORE_URLS: "http://+:80"
+    ports:
+     - "5002:80"
+  service-c:
+    container_name: service-c
+    environment:
+     ASPNETCORE_URLS: "http://+:80"
+    ports:
+     - "5003:80"
+    
